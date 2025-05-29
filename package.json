@@ -1,6 +1,6 @@
 {
-  "name": "pcap",
-  "version": "3.1.0",
+  "name": "@corellium/pcap",
+  "version": "3.2.1",
   "description": "raw packet capture, decoding, and analysis",
   "author": "Matt Ranney <mjr@ranney.com>",
   "license": "MIT",
@@ -11,15 +11,33 @@
   "types": "pcap.d.ts",
   "repository": {
     "type": "git",
-    "url": "git://github.com/node-pcap/node_pcap.git"
+    "url": "git@github.com:corellium/node-pcap.git"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@types/node": "^10.0.0",
-    "nan": "^2.14.0"
+    "nan": "^2.22.2",
+    "node-gyp-build": "^4.8.4"
   },
+  "files": [
+    "binding.gyp",
+    "decode/**/*.js",
+    "dns_cache.js",
+    "Gruntfile.js",
+    "examples/**",
+    "pcap.d.ts",
+    "pcap.js",
+    "spec/**",
+    "pcap_binding.cc",
+    "pcap_session.cc",
+    "pcap_session.h",
+    "prebuilds/**/*.node",
+    "tcp_tracker.js",
+    "util.js"
+  ],
+  "gypfile": true,
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-cli": "^1.3.2",
@@ -30,10 +48,17 @@
     "istanbul": "^0.4.5",
     "mocha": "^7.0.1",
     "mocha-sinon": "^1.1.4",
+    "prebuildify": "^6.0.1",
     "should": "^5.0.0",
     "sinon": "^1.14.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "build": "prebuildify --strip --tag-armv --tag-libc --napi --target=22.0.0",
+    "clean": "node-gyp clean",
+    "install": "node-gyp-build",
     "test": "grunt"
   }
 }
